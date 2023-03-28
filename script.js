@@ -1,10 +1,11 @@
 const container_table = document.querySelector('.table');
 const totalSpaceOnGrid = 500*500;
-const elements = document.getElementsByClassName('.square')
 const slider = document.getElementById('slider');
 const labelslider = document.querySelector('.labelslider')
 const btnremove = document.querySelector('.btnremove')
 const btnrainbow = document.querySelector('.btnrainbow')
+const btnblack = document.querySelector('.btnblack')
+const btneraser = document.querySelector('.btneraser')
 
 //DEFAULT VALUES WHEN THE WEBSITE IS OPENED
 slider.value = 24;
@@ -20,15 +21,24 @@ btnremove.addEventListener('click', function() {
     createGrid(slider.value, totalSpaceOnGrid)
 });
 
+//BLACK PENCIL
+btnblack.addEventListener('click', function() {
+  blackColor()
+})
+
 //RAINBOW MODE
 btnrainbow.addEventListener('click', function (){
-  createGridRainbow(slider.value, totalSpaceOnGrid)
+  rainbowColor()
+});
+
+//ERASER
+btneraser.addEventListener('click', function () {
+  eraser()
 });
 
 
-
 //CREATES THE FUNCTION THAT MAKES THE GRID BASED ON THE VALUES OF THE SLIDER
-function createGrid(value, totalSpaceOnGrid) {
+function createGrid1(value, totalSpaceOnGrid) {
     const numberOfSquares = value * value;
     const min_width = Math.sqrt(totalSpaceOnGrid / numberOfSquares);
     container_table.innerHTML = "";
@@ -40,19 +50,21 @@ function createGrid(value, totalSpaceOnGrid) {
       newGrid.style.width = `${min_width}px`;
       newGrid.classList.add('square');
       
-      newGrid.addEventListener('mousedown', function() {
+      const mouseDownListener = function() {
         isDragging = true;
-      });
-  
-      newGrid.addEventListener('mousemove', function() {
+      };
+      const mouseMoveListener = function() {
         if (isDragging) {
-          newGrid.classList.add('whenhover');
+          newGrid.classList.add = `whenhover`;
         }
-      });
-  
-      newGrid.addEventListener('mouseup', function() {
+      };
+      const mouseUpListener = function() {
         isDragging = false;
-      });
+      };
+  
+      newGrid.addEventListener('mousedown', mouseDownListener);
+      newGrid.addEventListener('mousemove', mouseMoveListener);
+      newGrid.addEventListener('mouseup', mouseUpListener);
   
       container_table.appendChild(newGrid);
       labelslider.textContent = `${slider.value}X${slider.value}`
@@ -63,7 +75,7 @@ function createGrid(value, totalSpaceOnGrid) {
   function createGridRainbow(value, totalSpaceOnGrid) {
     const numberOfSquares = value * value;
     const min_width = Math.sqrt(totalSpaceOnGrid / numberOfSquares);
-    container_table.innerHTML = "";
+    container_table.innerHTML = '';
     
     let isDragging = false;
   
@@ -72,20 +84,22 @@ function createGrid(value, totalSpaceOnGrid) {
       newGrid.style.width = `${min_width}px`;
       newGrid.classList.add('square');
       
-      newGrid.addEventListener('mousedown', function() {
+      const mouseDownListener = function() {
         isDragging = true;
-      });
-  
-      newGrid.addEventListener('mousemove', function() {
+      };
+      const mouseMoveListener = function() {
         if (isDragging) {
           newGrid.style.backgroundColor = `${getRandomHexCode()}`;
         }
-      });
-  
-      newGrid.addEventListener('mouseup', function() {
+      };
+      const mouseUpListener = function() {
         isDragging = false;
-      });
+      };
   
+      newGrid.addEventListener('mousedown', mouseDownListener);
+      newGrid.addEventListener('mousemove', mouseMoveListener);
+      newGrid.addEventListener('mouseup', mouseUpListener);
+
       container_table.appendChild(newGrid);
       labelslider.textContent = `${slider.value}X${slider.value}`
     }
@@ -101,3 +115,90 @@ function createGrid(value, totalSpaceOnGrid) {
     console.log(color)
     return color;
   }
+
+  //Adding classes when hovering
+
+
+  function createGrid(value, totalSpaceOnGrid) {
+    const numberOfSquares = value * value;
+    const min_width = Math.sqrt(totalSpaceOnGrid / numberOfSquares);
+    container_table.innerHTML = "";
+
+  
+    for (let i = 1; i <= numberOfSquares; i++) {
+      const newGrid = document.createElement('div');
+      newGrid.style.width = `${min_width}px`;
+      newGrid.classList.add('square');
+      container_table.appendChild(newGrid);
+      labelslider.textContent = `${slider.value}X${slider.value}`
+    }
+  }
+  
+  function rainbowColor() {
+    const elements = document.querySelectorAll('.square');
+    let isDragging = false;
+    
+    for(let i = 0; i < elements.length; i++) {
+      const mouseDownListener = function() {
+        isDragging = true;
+      };
+      const mouseMoveListener = function() {
+        if (isDragging) {
+          elements[i].style.backgroundColor = `${getRandomHexCode()}`;
+        }
+      };
+      const mouseUpListener = function() {
+        isDragging = false;
+      };
+      elements[i].addEventListener('mousedown', mouseDownListener);
+      elements[i].addEventListener('mousemove', mouseMoveListener);
+      elements[i].addEventListener('mouseup', mouseUpListener);
+    }
+  }
+
+  function blackColor() {
+    const elements = document.querySelectorAll('.square');
+    let isDragging = false;
+    
+    for(let i = 0; i < elements.length; i++) {
+      const mouseDownListener = function() {
+        isDragging = true;
+      };
+      const mouseMoveListener = function() {
+        if (isDragging) {
+          elements[i].style.backgroundColor = `black`;
+        }
+      };
+      const mouseUpListener = function() {
+        isDragging = false;
+      };
+      elements[i].addEventListener('mousedown', mouseDownListener);
+      elements[i].addEventListener('mousemove', mouseMoveListener);
+      elements[i].addEventListener('mouseup', mouseUpListener);
+    }
+  }
+
+
+  function eraser() {
+    const elements = document.querySelectorAll('.square');
+    let isDragging = false;
+    
+    for(let i = 0; i < elements.length; i++) {
+      const mouseDownListener = function() {
+        isDragging = true;
+      };
+      const mouseMoveListener = function() {
+        if (isDragging) {
+          elements[i].style.backgroundColor = `white`;
+        }
+      };
+      const mouseUpListener = function() {
+        isDragging = false;
+      };
+      elements[i].addEventListener('mousedown', mouseDownListener);
+      elements[i].addEventListener('mousemove', mouseMoveListener);
+      elements[i].addEventListener('mouseup', mouseUpListener);
+    }
+  }
+
+
