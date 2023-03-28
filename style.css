@@ -75,3 +75,32 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.btnremove {
+    padding: 20px;
+    background-color: beige;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btnrainbow {
+    padding: 20px;
+    background-color: beige;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.divslider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tools {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    margin: 10px;
+}
