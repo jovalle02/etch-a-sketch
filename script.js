@@ -6,6 +6,7 @@ const btnremove = document.querySelector('.btnremove')
 const btnrainbow = document.querySelector('.btnrainbow')
 const btnblack = document.querySelector('.btnblack')
 const btneraser = document.querySelector('.btneraser')
+const btnblurred = document.querySelector('.btnblurred')
 
 //DEFAULT VALUES WHEN THE WEBSITE IS OPENED
 slider.value = 24;
@@ -31,6 +32,12 @@ btnrainbow.addEventListener('click', function (){
   rainbowColor()
 });
 
+//BLURRED MODE
+btnblurred.addEventListener('click', function (){
+  difuminado()
+});
+
+
 //ERASER
 btneraser.addEventListener('click', function () {
   eraser()
@@ -43,7 +50,6 @@ btneraser.addEventListener('click', function () {
     for (let i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
-    console.log(color)
     return color;
   }
 
@@ -68,6 +74,7 @@ btneraser.addEventListener('click', function () {
   function rainbowColor() {
     const elements = document.querySelectorAll('.square');
     let isDragging = false;
+    //
     
     for(let i = 0; i < elements.length; i++) {
       const mouseDownListener = function() {
@@ -130,6 +137,33 @@ btneraser.addEventListener('click', function () {
       elements[i].addEventListener('mousemove', mouseMoveListener);
       elements[i].addEventListener('mouseup', mouseUpListener);
     }
+  }
+
+  function difuminado() {
+    const elements = document.querySelectorAll('.square');
+    let isDragging = false;
+    let opacidad = 0;
+    
+    for(let i = 0; i < elements.length; i++) {
+      const mouseDownListener = function() {
+        isDragging = true;
+        opacidad = 0;
+      };
+      const mouseMoveListener = function() {
+        if (isDragging) {
+            elements[i].style.backgroundColor = `black`;
+            elements[i].style.opacity = `${opacidad}%`;
+            opacidad += 5;
+        }
+      };
+      const mouseUpListener = function() {
+        isDragging = false;
+      };
+      elements[i].addEventListener('mousedown', mouseDownListener);
+      elements[i].addEventListener('mousemove', mouseMoveListener);
+      elements[i].addEventListener('mouseup', mouseUpListener);
+    }
+
   }
 
 

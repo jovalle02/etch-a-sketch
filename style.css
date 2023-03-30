@@ -114,6 +114,13 @@ body {
     cursor: pointer;
 }
 
+.btnblurred {
+    padding: 20px;
+    background-color: beige;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
 
 .divslider {
     display: flex;
